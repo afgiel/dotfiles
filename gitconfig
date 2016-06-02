@@ -1,0 +1,11 @@
+[user]
+	email = agiel@hearsaycorp.com
+	name = Andrew Giel
+[alias]
+    s = status
+    ci = commit
+    co = checkout
+    a = add
+    l = log
+[core]
+    editor = vim

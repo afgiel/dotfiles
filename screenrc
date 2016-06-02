@@ -1,0 +1,15 @@
+startup_message off
+
+bind c screen 1
+bind ^c screen 1
+bind 0 select 10
+screen 1
+bind ' ' focus
+
+rdstatus on
+hardstatus alwayslastline
+hardstatus string "%{.bW}%-w%{.rW}%n %t%{-}%+w %=%{..G} %H %{..Y} %m/%d %C%a "
+
+rendition so "=" "bd"
+
+autodetach on
