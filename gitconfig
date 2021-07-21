@@ -7,5 +7,10 @@
     co = checkout
     a = add
     l = log
+	update = "!f(){ git fetch && git rebase origin/master; };f"
 [core]
     editor = vim
+[url "\"git@github.com:\""]
+	insteadOf = \"https://github.com/\"
+[commit]
+	verbose = true
