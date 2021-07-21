@@ -29,3 +29,5 @@ fi
 
 npm install coc-snippets --global-style --ignore-scripts --no-bin-links --no-package-lock --only=prod
 
+# elixir
+git clone https://github.com/elixir-editors/vim-elixir.git ~/.vim/pack/my-packages/start/vim-elixir
