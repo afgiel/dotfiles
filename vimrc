@@ -51,6 +51,8 @@ let g:ale_lint_delay = 100
 let g:ale_javascript_eslint_executable = 'eslint_d'
 " so that we prefer eslint_d over the local version :\
 let g:ale_javascript_eslint_use_global = 1
+" disable virtual text cursor (adds comments to end of lines)
+let g:ale_virtualtext_cursor = 'disabled'
 " setup ale autofixing
 let g:ale_fixers = {}
 let g:ale_fixers.javascript = [
@@ -64,7 +66,6 @@ let g:ale_fix_on_save = 1
 " handy key mappings to move to the next/previous error
 nnoremap [; :ALEPreviousWrap<cr>
 nnoremap ]; :ALENextWrap<cr>
-
 
 "
 " NOTE: update this to point to your discord root directory
@@ -265,4 +266,5 @@ nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list.
 nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 
-
+let $TSC_WATCHFILE = 'PriorityPollingInterval'
+highlight CoCFloating ctermbg=blue
