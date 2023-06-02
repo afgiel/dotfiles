@@ -3,11 +3,12 @@
 	name = Andrew Giel
 [alias]
     s = status
-    ci = commit
+    ci = commit -v
     co = checkout
     a = add
     l = log
-	update = "!f(){ git fetch && git rebase origin/master; };f"
+	update = "!f(){ git fetch && git rebase origin/main; };f"
+    fp = push --force-with-lease
 [core]
     editor = vim
 [url "\"git@github.com:\""]

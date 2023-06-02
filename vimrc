@@ -31,6 +31,8 @@ au BufNewFile,BufRead *.tsx set syntax=javascript
 au BufNewFile,BufRead *.jsonnet set syntax=javascript
 au BufNewFile,BufRead *.libsonnet set syntax=javascript
 
+packloadall
+
 set runtimepath^=~/.vim/bundle/ctrlp.vim
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
@@ -66,6 +68,9 @@ let g:ale_fix_on_save = 1
 " handy key mappings to move to the next/previous error
 nnoremap [; :ALEPreviousWrap<cr>
 nnoremap ]; :ALENextWrap<cr>
+highlight ALEErrorSign ctermbg=NONE ctermfg=red
+highlight clear ALEWarningSign 
+let g:ale_fix_on_save = 1
 
 "
 " NOTE: update this to point to your discord root directory
@@ -268,3 +273,5 @@ nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 
 let $TSC_WATCHFILE = 'PriorityPollingInterval'
 highlight CoCFloating ctermbg=blue
+command! -nargs=0 Prettier :call CocAction('runCommand', 'prettier.formatFile')
+command P Prettier
