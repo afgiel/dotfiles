@@ -101,6 +101,21 @@ nmap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
 nmap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
 nmap <silent><nowait> <space>s  :<C-u>CocList -I symbols<cr>
 
+" Use Tab for completion trigger and navigation
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <silent><expr> <S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+" Make Enter auto-select the first completion item and format on Enter
+inoremap <silent><expr> <CR> pumvisible() ? coc#_select_confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+" Highlight the CoC floating dialog and selected item
+highlight CocMenuSel ctermfg=white ctermbg=blue guifg=white guibg=blue
+highlight CocMenu ctermfg=black ctermbg=grey guifg=black guibg=grey
+
 " Other CoC related mappings for format, code actions, etc.
 command! -nargs=0 Format :call CocAction('format')
 command! -nargs=0 OR   :call CocAction('runCommand', 'editor.action.organizeImport')
