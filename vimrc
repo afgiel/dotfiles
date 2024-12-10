@@ -72,8 +72,8 @@ let g:ale_fixers.javascript = ['eslint', 'prettier']
 let g:ale_fixers.css = ['prettier']
 
 " Key mappings for ALE error navigation
-nnoremap [; :ALEPreviousWrap<cr>
-nnoremap ]; :ALENextWrap<cr>
+nnoremap <C-j> :ALEPreviousWrap<cr>
+nnoremap <C-k> :ALENextWrap<cr>
 highlight ALEErrorSign ctermbg=NONE ctermfg=red
 highlight clear ALEWarningSign
 
