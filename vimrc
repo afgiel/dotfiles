@@ -45,7 +45,10 @@ call plug#end()
 let g:ale_enabled = 1
 
 " Use ESLint for linting TypeScript files
-let g:ale_linters = {'typescriptreact': ['eslint']}
+let g:ale_linters = {
+\   'typescript': ['tsserver', 'eslint'],
+\   'typescriptreact': ['tsserver', 'eslint'],
+\}
 
 " ESLint setup for faster linting with eslint_d
 let g:ale_javascript_eslint_executable = 'eslint_d'
@@ -72,7 +75,7 @@ let g:ale_fixers.css = ['prettier']
 nnoremap [; :ALEPreviousWrap<cr>
 nnoremap ]; :ALENextWrap<cr>
 highlight ALEErrorSign ctermbg=NONE ctermfg=red
-highlight clear ALEWarningSign 
+highlight clear ALEWarningSign
 
 " Text and auto-save settings
 set hidden
