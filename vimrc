@@ -8,7 +8,6 @@ set smartindent
 set expandtab
 set number
 set hlsearch
-set ruler
 set term=builtin_ansi
 set re=0
 set nobackup
@@ -21,6 +20,8 @@ set encoding=utf-8
 
 " Colors and highlighting
 colorscheme default
+
+" highlights
 highlight ExtraWhitespace ctermbg=yellow guibg=yellow
 match ExtraWhitespace /\s\+$/
 highlight Pmenu ctermfg=0 ctermbg=1
@@ -29,6 +30,13 @@ highlight TabLine ctermfg=0 ctermbg=3
 highlight CursorLine ctermfg=0 ctermbg=5
 hi CursorLine ctermfg=white ctermbg=blue
 hi StatusLine ctermbg=yellow ctermfg=blue
+highlight ALEErrorSign ctermbg=NONE ctermfg=red
+highlight clear ALEWarningSign
+highlight CocMenuSel ctermfg=white ctermbg=blue guifg=white guibg=blue
+highlight CocMenu ctermfg=black ctermbg=grey guifg=black guibg=grey
+
+" gb is 'go back'
+nmap <silent> gb :b#<cr>
 
 set runtimepath^=~/.vim/bundle/ctrlp.vim
 
@@ -74,11 +82,16 @@ let g:ale_fixers = {}
 let g:ale_fixers.javascript = ['eslint', 'prettier']
 let g:ale_fixers.css = ['prettier']
 
+" ALE navigation
+nmap <silent> gd :vsplit<cr>:ALEGoToDefinition<cr>
+nmap <silent> gt :ALEGoToDefinition<cr>
+nmap <silent> gy :ALEGoToTypeDefinition<cr>
+nmap <silent> gr :ALEFindReferences<cr>
+nmap <silent> gh :ALEHover<cr>
+
 " Key mappings for ALE error navigation
 nnoremap <C-j> :ALEPreviousWrap<cr>
 nnoremap <C-k> :ALENextWrap<cr>
-highlight ALEErrorSign ctermbg=NONE ctermfg=red
-highlight clear ALEWarningSign
 
 " Text and auto-save settings
 set hidden
@@ -101,12 +114,6 @@ au BufNewFile,BufRead *.tsx set syntax=typescriptreact
 " Additional CoC configuration (optional, based on old vimrc)
 let $TSC_WATCHFILE = 'PriorityPollingInterval'
 
-" Key mappings for CoC
-" Define key mappings for navigating and applying code actions (optional)
-nmap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
-nmap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
-nmap <silent><nowait> <space>s  :<C-u>CocList -I symbols<cr>
-
 " Use Tab for completion trigger and navigation
 inoremap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :
@@ -118,10 +125,31 @@ inoremap <silent><expr> <S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 inoremap <silent><expr> <CR> pumvisible() ? coc#_select_confirm()
                               \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
-" Highlight the CoC floating dialog and selected item
-highlight CocMenuSel ctermfg=white ctermbg=blue guifg=white guibg=blue
-highlight CocMenu ctermfg=black ctermbg=grey guifg=black guibg=grey
-
 " Other CoC related mappings for format, code actions, etc.
 command! -nargs=0 Format :call CocAction('format')
 command! -nargs=0 OR   :call CocAction('runCommand', 'editor.action.organizeImport')
+
+" ALE Status function
+function! ALEStatus() abort
+  let l:counts = ale#statusline#Count(bufnr(''))
+  let l:all_errors = l:counts.error + l:counts.style_error
+  let l:all_non_errors = l:counts.total - l:all_errors
+
+  " Show loading status
+	if ale#engine#IsCheckingBuffer(bufnr(''))
+    let l:frames = ['🐌', '.🐌', '..🐌', '...🐌', '.....🐌', '......🐌']
+    let l:frame_idx = str2nr(strftime('%S')) % 6
+    return l:frames[l:frame_idx]
+  endif
+
+  " Show results
+  if l:counts.total == 0
+    return '✅'
+  else
+    return printf('%d⚠ %d🚨', l:all_non_errors, l:all_errors)
+  endif
+endfunction
+
+" Set statusline with ALE status
+set laststatus=2
+set statusline=%f\ %m%r%h%w\ %{ALEStatus()}%=%l,%c\ %p%%
