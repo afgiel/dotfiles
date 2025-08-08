@@ -1,0 +1,16 @@
+#theme
+theme=Dark Pastel
+
+# Tab navigation with CMD + arrow keys
+keybind = cmd+left=previous_tab
+keybind = cmd+right=next_tab
+# Tab reordering  
+keybind = cmd+shift+left=move_tab:-1
+keybind = cmd+shift+right=move_tab:1
+
+# cursor
+shell-integration-features = no-cursor
+cursor-style = block
+cursor-color = #00ff41
+mouse-hide-while-typing = true
+keybind = shift+enter=text:\n
