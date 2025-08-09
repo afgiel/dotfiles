@@ -24,16 +24,18 @@ colorscheme default
 " highlights
 highlight ExtraWhitespace ctermbg=yellow guibg=yellow
 match ExtraWhitespace /\s\+$/
-highlight Pmenu ctermfg=0 ctermbg=1
-highlight PmenuSel ctermfg=0 ctermbg=3
 highlight TabLine ctermfg=0 ctermbg=3
 highlight CursorLine ctermfg=0 ctermbg=5
 hi CursorLine ctermfg=white ctermbg=blue
 hi StatusLine ctermbg=yellow ctermfg=blue
 highlight ALEErrorSign ctermbg=NONE ctermfg=red
 highlight clear ALEWarningSign
+highlight Pmenu ctermfg=blue ctermbg=yellow guifg=blue guibg=yellow
+highlight PmenuSel ctermfg=white ctermbg=blue guifg=white guibg=blue
+highlight CocMenu ctermfg=blue ctermbg=yellow guifg=blue guibg=yellow
 highlight CocMenuSel ctermfg=white ctermbg=blue guifg=white guibg=blue
-highlight CocMenu ctermfg=black ctermbg=grey guifg=black guibg=grey
+highlight CocSearch ctermfg=red ctermbg=yellow guifg=red guibg=yellow
+highlight CocFloating ctermfg=blue ctermbg=yellow guifg=blue guibg=yellow
 
 " gb is 'go back'
 nmap <silent> gb :b#<cr>
@@ -56,6 +58,7 @@ let g:ale_enabled = 1
 let g:ale_linters = {
 \   'typescript': ['tsserver', 'eslint'],
 \   'typescriptreact': ['tsserver', 'eslint'],
+\   'python': ['flake8'],
 \}
 
 " Disable Automatic Typing Acquisition for quicker startup
@@ -65,6 +68,10 @@ let g:ale_typescript_tsserver_options = '--disableAutomaticTypingAcquisition'
 let g:ale_javascript_eslint_executable = 'eslint_d'
 let g:ale_javascript_eslint_use_global = 1
 let g:ale_javascript_eslint_options = '--ext .tsx,.ts'
+
+" Configure flake8 to ignore line length (E501) and other common style issues
+let g:ale_python_flake8_executable = 'python3'
+let g:ale_python_flake8_options = '-m flake8 --ignore=E501,W503,E266 --max-line-length=999'
 
 " ALE options
 let g:ale_history_log_output=1
