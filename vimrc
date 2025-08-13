@@ -40,16 +40,27 @@ highlight CocFloating ctermfg=blue ctermbg=yellow guifg=blue guibg=yellow
 " gb is 'go back'
 nmap <silent> gb :b#<cr>
 
-set runtimepath^=~/.vim/bundle/ctrlp.vim
-
 " Install Plug if not already installed
 call plug#begin('~/.vim/plugged')
 
 " Install ALE plugin
 Plug 'dense-analysis/ale'
 
+" Install fzf
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+
+" configure fzf to ctrl+p
+
+
 " Call plug#end to complete plugin installation
 call plug#end()
+
+" fzf config, mapped to ctrl+p
+let $FZF_DEFAULT_COMMAND = 'rg --files --hidden --glob "!{node_modules/*,.git/*}"'
+nnoremap <C-p> :Files<CR>
+let $FZF_DEFAULT_OPTS = '--color=bg+:blue,fg+:yellow,hl:red,hl+:red,border:yellow,prompt:yellow,pointer:green --prompt "🐌 " --border --height 40%'
+let g:fzf_preview_window = ['right:50%', 'ctrl-/']
 
 " Enable ALE for linting
 let g:ale_enabled = 1
@@ -108,11 +119,6 @@ set shortmess+=c
 
 " Always show the signcolumn, so it doesn't shift text
 set signcolumn=number
-
-" Configure `CtrlP` for fuzzy file finding
-let g:ctrlp_map = '<c-p>'
-let g:ctrlp_cmd = 'CtrlP'
-let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
 
 " Custom filetype handling (TypeScript, etc.)
 au BufNewFile,BufRead *.ts set syntax=typescript

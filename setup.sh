@@ -1,10 +1,11 @@
 set -e
 
+brew install ripgrep
+brew install fzf
+
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
-# ctrl p
 cd ~/.vim
-git clone https://github.com/ctrlpvim/ctrlp.vim.git bundle/ctrlp.vim
 
 # ale
 mkdir -p ~/.vim/pack/git-plugins/start
