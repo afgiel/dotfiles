@@ -2,6 +2,7 @@ set -e
 
 brew install ripgrep
 brew install fzf
+brew install node
 
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
@@ -10,14 +11,6 @@ cd ~/.vim
 # ale
 mkdir -p ~/.vim/pack/git-plugins/start
 git clone --depth 1 https://github.com/dense-analysis/ale.git ~/.vim/pack/git-plugins/start/ale
-
-# Install latest nodejs
-if [ ! -x "$(command -v node)" ]; then
-    curl --fail -LSs https://install-node.now.sh/latest | sh
-    export PATH="/usr/local/bin/:$PATH"
-    # Or use package manager, e.g.
-    # sudo apt-get install nodejs
-fi
 
 mkdir -p ~/.vim/pack/coc/start
 cd ~/.vim/pack/coc/start
