@@ -27,3 +27,5 @@ npm install coc-snippets --global-style --ignore-scripts --no-bin-links --no-pac
 
 # elixir
 git clone https://github.com/elixir-editors/vim-elixir.git ~/.vim/pack/my-packages/start/vim-elixir
+
+echo "ANDY -- don't forget to run :PlugInstall in vim"
