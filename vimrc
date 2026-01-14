@@ -102,7 +102,7 @@ let g:ale_fixers.css = ['prettier']
 
 " ALE navigation
 nmap <silent> gd :vsplit<cr>:ALEGoToDefinition<cr>
-nmap <silent> gt :ALEGoToDefinition<cr>
+nmap <silent> gf :ALEGoToDefinition<cr>
 nmap <silent> gy :ALEGoToTypeDefinition<cr>
 nmap <silent> gr :ALEFindReferences<cr>
 nmap <silent> gh :ALEHover<cr>
