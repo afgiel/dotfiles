@@ -1,31 +1,32 @@
+#!/usr/bin/env bash
 set -e
+
+DOTFILES_DIR="$(cd "$(dirname "$0")" && pwd)"
 
 brew install ripgrep
 brew install fzf
 brew install node
 
-curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+ln -sf "$DOTFILES_DIR/vimrc" ~/.vimrc
+ln -sf "$DOTFILES_DIR/gitconfig" ~/.gitconfig
+ln -sf "$DOTFILES_DIR/screenrc" ~/.screenrc
 
-cd ~/.vim
+if [[ "$(uname)" == "Darwin" ]]; then
+  GHOSTTY_DIR="$HOME/Library/Application Support/com.mitchellh.ghostty"
+else
+  GHOSTTY_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/ghostty"
+fi
+mkdir -p "$GHOSTTY_DIR"
+ln -sf "$DOTFILES_DIR/ghostty-config" "$GHOSTTY_DIR/config"
 
-# ale
-mkdir -p ~/.vim/pack/git-plugins/start
-git clone --depth 1 https://github.com/dense-analysis/ale.git ~/.vim/pack/git-plugins/start/ale
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
-mkdir -p ~/.vim/pack/coc/start
-cd ~/.vim/pack/coc/start
-curl --fail -L https://github.com/neoclide/coc.nvim/archive/release.tar.gz | tar xzfv -
+vim +PlugInstall +qall
 
 mkdir -p ~/.config/coc/extensions
 cd ~/.config/coc/extensions
-if [ ! -f package.json ]
-then
-  echo '{"dependencies":{}}'> package.json
+if [ ! -f package.json ]; then
+  echo '{"dependencies":{}}' > package.json
 fi
-
-npm install coc-snippets --global-style --ignore-scripts --no-bin-links --no-package-lock --only=prod
-
-# elixir
-git clone https://github.com/elixir-editors/vim-elixir.git ~/.vim/pack/my-packages/start/vim-elixir
-
-echo "ANDY -- don't forget to run :PlugInstall in vim"
+npm install coc-snippets --global-style --ignore-scripts --no-bin-links --no-package-lock --omit=dev

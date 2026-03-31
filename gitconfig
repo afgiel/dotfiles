@@ -12,7 +12,7 @@
     sync = "!f() { git diff-index --quiet HEAD -- && git fetch origin && git reset --hard @{u} || echo 'You have uncommitted changes. Commit or stash them first.'; }; f"
 [core]
     editor = vim
-[url "\"git@github.com:\""]
-  insteadOf = \"https://github.com/\"
+[url "git@github.com:"]
+  insteadOf = "https://github.com/"
 [commit]
   verbose = true

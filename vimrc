@@ -8,7 +8,6 @@ set smartindent
 set expandtab
 set number
 set hlsearch
-set term=builtin_ansi
 set re=0
 set nobackup
 set nowritebackup
@@ -25,7 +24,6 @@ colorscheme default
 highlight ExtraWhitespace ctermbg=yellow guibg=yellow
 match ExtraWhitespace /\s\+$/
 highlight TabLine ctermfg=0 ctermbg=3
-highlight CursorLine ctermfg=0 ctermbg=5
 hi CursorLine ctermfg=white ctermbg=blue
 hi StatusLine ctermbg=yellow ctermfg=blue
 highlight ALEErrorSign ctermbg=NONE ctermfg=red
@@ -50,10 +48,9 @@ Plug 'dense-analysis/ale'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
-" configure fzf to ctrl+p
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'elixir-editors/vim-elixir'
 
-
-" Call plug#end to complete plugin installation
 call plug#end()
 
 " fzf config, mapped to ctrl+p
@@ -67,13 +64,10 @@ let g:ale_enabled = 1
 
 " Use ESLint for linting TypeScript files
 let g:ale_linters = {
-\   'typescript': ['tsserver', 'eslint'],
-\   'typescriptreact': ['tsserver', 'eslint'],
+\   'typescript': ['eslint'],
+\   'typescriptreact': ['eslint'],
 \   'python': ['flake8'],
 \}
-
-" Disable Automatic Typing Acquisition for quicker startup
-let g:ale_typescript_tsserver_options = '--disableAutomaticTypingAcquisition'
 
 " ESLint setup for faster linting with eslint_d
 let g:ale_javascript_eslint_executable = 'eslint_d'
@@ -100,16 +94,14 @@ let g:ale_fixers = {}
 let g:ale_fixers.javascript = ['eslint', 'prettier']
 let g:ale_fixers.css = ['prettier']
 
-" ALE navigation
-nmap <silent> gd :vsplit<cr>:ALEGoToDefinition<cr>
-nmap <silent> gf :ALEGoToDefinition<cr>
-nmap <silent> gy :ALEGoToTypeDefinition<cr>
-nmap <silent> gr :ALEFindReferences<cr>
-nmap <silent> gh :ALEHover<cr>
+nmap <silent> gd :vsplit<cr><Plug>(coc-definition)
+nmap <silent> gf <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gr <Plug>(coc-references)
+nmap <silent> gh :call CocActionAsync('doHover')<cr>
 
-" Key mappings for ALE error navigation
-nnoremap <C-j> :ALEPreviousWrap<cr>
-nnoremap <C-k> :ALENextWrap<cr>
+nnoremap <C-j> :ALENextWrap<cr>
+nnoremap <C-k> :ALEPreviousWrap<cr>
 
 " Text and auto-save settings
 set hidden
@@ -127,7 +119,11 @@ au BufNewFile,BufRead *.tsx set syntax=typescriptreact
 " Additional CoC configuration (optional, based on old vimrc)
 let $TSC_WATCHFILE = 'PriorityPollingInterval'
 
-" Use Tab for completion trigger and navigation
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
 inoremap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :
       \ <SID>check_back_space() ? "\<TAB>" :
@@ -148,8 +144,7 @@ function! ALEStatus() abort
   let l:all_errors = l:counts.error + l:counts.style_error
   let l:all_non_errors = l:counts.total - l:all_errors
 
-  " Show loading status
-	if ale#engine#IsCheckingBuffer(bufnr(''))
+  if ale#engine#IsCheckingBuffer(bufnr(''))
     let l:frames = ['🐌', '.🐌', '..🐌', '...🐌', '.....🐌', '......🐌']
     let l:frame_idx = str2nr(strftime('%S')) % 6
     return l:frames[l:frame_idx]
