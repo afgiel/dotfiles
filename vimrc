@@ -112,13 +112,6 @@ set shortmess+=c
 " Always show the signcolumn, so it doesn't shift text
 set signcolumn=number
 
-" Custom filetype handling (TypeScript, etc.)
-au BufNewFile,BufRead *.ts set syntax=typescript
-au BufNewFile,BufRead *.tsx set syntax=typescriptreact
-
-" Additional CoC configuration (optional, based on old vimrc)
-let $TSC_WATCHFILE = 'PriorityPollingInterval'
-
 function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'

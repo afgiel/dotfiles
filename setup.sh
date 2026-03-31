@@ -3,9 +3,25 @@ set -e
 
 DOTFILES_DIR="$(cd "$(dirname "$0")" && pwd)"
 
-brew install ripgrep
-brew install fzf
-brew install node
+install_packages() {
+  if command -v brew &>/dev/null; then
+    brew install ripgrep fzf node
+  elif command -v apt-get &>/dev/null; then
+    sudo apt-get update
+    sudo apt-get install -y ripgrep fzf nodejs npm
+  elif command -v dnf &>/dev/null; then
+    sudo dnf install -y ripgrep fzf nodejs npm
+  elif command -v pacman &>/dev/null; then
+    sudo pacman -S --noconfirm ripgrep fzf nodejs npm
+  else
+    echo "No supported package manager found (brew, apt, dnf, pacman)" >&2
+    exit 1
+  fi
+}
+
+install_packages
+
+npm install -g eslint_d
 
 ln -sf "$DOTFILES_DIR/vimrc" ~/.vimrc
 ln -sf "$DOTFILES_DIR/gitconfig" ~/.gitconfig

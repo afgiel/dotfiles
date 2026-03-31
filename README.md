@@ -2,7 +2,7 @@
 
 ## Prerequisites
 
-- [Homebrew](https://brew.sh)
+One of: [Homebrew](https://brew.sh), apt, dnf, or pacman
 
 ## Install
 
