@@ -20,7 +20,7 @@ cd ~/dotfiles
 |------|-------------|
 | `vimrc` | `~/.vimrc` |
 | `gitconfig` | `~/.gitconfig` |
-| `screenrc` | `~/.screenrc` |
+| `tmux.conf` | `~/.tmux.conf` |
 | `ghostty-config` | `~/Library/Application Support/com.mitchellh.ghostty/config` (macOS) or `~/.config/ghostty/config` (Linux) |
 
 It also:

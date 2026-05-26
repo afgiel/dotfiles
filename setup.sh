@@ -25,7 +25,7 @@ npm install -g eslint_d
 
 ln -sf "$DOTFILES_DIR/vimrc" ~/.vimrc
 ln -sf "$DOTFILES_DIR/gitconfig" ~/.gitconfig
-ln -sf "$DOTFILES_DIR/screenrc" ~/.screenrc
+ln -sf "$DOTFILES_DIR/tmux.conf" ~/.tmux.conf
 
 if [[ "$(uname)" == "Darwin" ]]; then
   GHOSTTY_DIR="$HOME/Library/Application Support/com.mitchellh.ghostty"
