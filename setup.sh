@@ -5,14 +5,14 @@ DOTFILES_DIR="$(cd "$(dirname "$0")" && pwd)"
 
 install_packages() {
   if command -v brew &>/dev/null; then
-    brew install ripgrep fzf node
+    brew install ripgrep fzf node tmux
   elif command -v apt-get &>/dev/null; then
     sudo apt-get update
-    sudo apt-get install -y ripgrep fzf nodejs npm
+    sudo apt-get install -y ripgrep fzf nodejs npm tmux
   elif command -v dnf &>/dev/null; then
-    sudo dnf install -y ripgrep fzf nodejs npm
+    sudo dnf install -y ripgrep fzf nodejs npm tmux
   elif command -v pacman &>/dev/null; then
-    sudo pacman -S --noconfirm ripgrep fzf nodejs npm
+    sudo pacman -S --noconfirm ripgrep fzf nodejs npm tmux
   else
     echo "No supported package manager found (brew, apt, dnf, pacman)" >&2
     exit 1
