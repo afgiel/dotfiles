@@ -25,11 +25,18 @@ cd ~/dotfiles
 
 It also:
 
-- Installs `ripgrep`, `fzf`, and `node` via Homebrew
+- Installs `ripgrep`, `fzf`, `node`, and `tmux` via Homebrew (or the equivalent apt/dnf/pacman)
 - Installs [vim-plug](https://github.com/junegunn/vim-plug) and runs `:PlugInstall`
 - Sets up [CoC](https://github.com/neoclide/coc.nvim) extensions (`coc-snippets`)
+- Configures npm's global prefix to `~/.npm-global` (avoids permission issues with system/nix-managed node) and installs `eslint_d` there
 
 The script is idempotent -- safe to re-run at any time.
+
+Add `~/.npm-global/bin` to your shell `PATH` so vim/coc can find `eslint_d`:
+
+```sh
+export PATH="$HOME/.npm-global/bin:$PATH"
+```
 
 ## Vim plugins
 

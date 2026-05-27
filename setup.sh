@@ -21,6 +21,9 @@ install_packages() {
 
 install_packages
 
+npm config set prefix "$HOME/.npm-global"
+export PATH="$HOME/.npm-global/bin:$PATH"
+
 npm install -g eslint_d
 
 ln -sf "$DOTFILES_DIR/vimrc" ~/.vimrc
