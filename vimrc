@@ -34,6 +34,7 @@ highlight CocMenu ctermfg=blue ctermbg=yellow guifg=blue guibg=yellow
 highlight CocMenuSel ctermfg=white ctermbg=blue guifg=white guibg=blue
 highlight CocSearch ctermfg=red ctermbg=yellow guifg=red guibg=yellow
 highlight CocFloating ctermfg=blue ctermbg=yellow guifg=blue guibg=yellow
+highlight Search ctermfg=blue ctermbg=yellow guifg=blue guibg=yellow
 
 " gb is 'go back'
 nmap <silent> gb :b#<cr>
